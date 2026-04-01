@@ -6,12 +6,12 @@ export default function Home() {
   const router = useRouter()
   // ── Sample data ─────────────────────────────────────────────
   const SAMPLE_MOVIES = [
-  { letter: 'I', title: 'Inception',      year: 2010, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#1a0a2e,#2d1458)' },
-  { letter: 'M', title: 'The Matrix',     year: 1999, genre: 'Action',   stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#0d1f0d,#1a3d1a)' },
-  { letter: 'D', title: 'Dune: Part Two', year: 2024, genre: 'Epic',     stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#1f1000,#3d2200)' },
-  { letter: 'A', title: 'Arrival',        year: 2016, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#001a2e,#003d5c)' },
-  { letter: 'B', title: 'Blade Runner',   year: 2049, genre: 'Neo-noir', stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#1a0a00,#3d1f00)' },
-  { letter: 'E', title: 'Ex Machina',     year: 2014, genre: 'Thriller', stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#0a1a0a,#1a3320)' },
+  { letter: 'I', title: 'Inception',      year: 2010, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#1a0a2e,#2d1458)' , poster: '/posters/Inception.jpeg'},
+  { letter: 'M', title: 'Spirited Away',     year: 2001, genre: 'Animation',   stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#0d1f0d,#1a3d1a)', poster: '/posters/spirited-away.jpeg' },
+  { letter: 'D', title: 'Dune: Part Two', year: 2024, genre: 'Epic',     stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#1f1000,#3d2200)', poster: '/posters/inception.jpg' },
+  { letter: 'A', title: 'Arrival',        year: 2016, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#001a2e,#003d5c)',poster: '/posters/inception.jpg' },
+  { letter: 'B', title: 'Blade Runner',   year: 2049, genre: 'Neo-noir', stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#1a0a00,#3d1f00)',poster: '/posters/inception.jpg' },
+  { letter: 'E', title: 'Ex Machina',     year: 2014, genre: 'Thriller', stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#0a1a0a,#1a3320)' ,poster: '/posters/inception.jpg'},
 ]
 
    const movies = [
