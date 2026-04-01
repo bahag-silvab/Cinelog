@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@source "../";
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #0a0a0f;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+button {
+  outline: none;
+}
