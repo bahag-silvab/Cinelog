@@ -4,11 +4,8 @@ import { createContext, useState, useEffect } from 'react'
 export const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  
-const [user, setUser]   = useState({ name: 'Bia', email: 'bia@test.com' })
-const [token, setToken] = useState('fake-token-for-testing')
-  //const [user, setUser]   = useState(null)
-  //const [token, setToken] = useState(null)
+  const [user, setUser]   = useState(null)
+  const [token, setToken] = useState(null)
 
   // On app load, restore token from localStorage
   useEffect(() => {

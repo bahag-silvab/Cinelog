@@ -6,13 +6,13 @@ import { register as registerApi } from '@/services/authService'
 import ThreeBackground from '@/components/ui/ThreeBackground'
 
 export default function RegisterPage() {
-  const [name, setName]         = useState('')
-  const [email, setEmail]       = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError]       = useState('')
-  const [loading, setLoading]   = useState(false)
-  const { login }               = useAuth()
-  const router                  = useRouter()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,7 +34,10 @@ export default function RegisterPage() {
       <ThreeBackground />
 
       {/* ── Left panel — hidden on mobile ── */}
-   <div className="hidden md:flex flex-1 flex-col justify-between px-16 py-12 relative z-10 overflow-hidden">
+      <div
+        className="hidden md:flex flex-1 flex-col justify-between py-12 relative z-10 overflow-hidden min-w-0"
+        style={{ paddingLeft: '80px', paddingRight: '48px' }}
+      >
         <div
           className="text-xl font-bold tracking-widest text-[#d4af37] uppercase cursor-pointer w-fit"
           onClick={() => router.push('/')}
@@ -80,8 +83,19 @@ export default function RegisterPage() {
       </div>
 
       {/* ── Right panel — full width on mobile ── */}
-      <div className="w-full md:max-w-[480px] flex items-center justify-center px-6 py-16 md:px-12 relative z-10 md:border-l md:border-white/5 md:bg-white/[0.02] md:backdrop-blur-xl">
-        <div className="w-full max-w-sm">
+      <div className="w-full md:max-w-[480px] flex items-center justify-center px-6 py-16 md:px-12 relative z-10 md:border-l md:border-white/5 md:backdrop-blur-xl overflow-hidden">
+
+        {/* Movie poster background */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/posters/dogs.jpeg"
+            alt="reservoir dogs"
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0" />
+        </div>
+
+        <div className="w-full max-w-sm relative z-10">
 
           {/* Mobile logo */}
           <div

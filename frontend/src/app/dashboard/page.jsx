@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ThreeBackground from '@/components/ui/ThreeBackground'
 import ProtectedRoute from '@/components/ui/ProtectedRoute'
+import RecommendPanel from '@/components/recommendations/RecommendPanel'
 import { useAuth } from '@/hooks/useAuth'
 import { useMovies } from '@/hooks/useMovies'
 import { addMovie, updateMovie, deleteMovie } from '@/services/movieService'
-import { getRecommendations } from '@/services/recommendService'
 
 export default function DashboardPage() {
   const { user, logout }            = useAuth()
@@ -15,9 +15,6 @@ export default function DashboardPage() {
   const { movies, loading, reload } = useMovies(filter)
   const [showAdd, setShowAdd]       = useState(false)
   const [editMovie, setEditMovie]   = useState(null)
-  const [recs, setRecs]             = useState([])
-  const [recsLoading, setRecsLoading] = useState(false)
-  const [recsError, setRecsError]   = useState('')
 
   const handleLogout = () => { logout(); router.push('/') }
 
@@ -25,21 +22,6 @@ export default function DashboardPage() {
     if (!confirm('Remove this movie?')) return
     await deleteMovie(id)
     reload()
-  }
-
-  const handleRecommend = async () => {
-    const watched = movies.filter(m => m.status === 'watched')
-    if (!watched.length) return setRecsError('Watch and rate some movies first!')
-    setRecsLoading(true)
-    setRecsError('')
-    try {
-      const result = await getRecommendations(watched)
-      setRecs(result)
-    } catch {
-      setRecsError('Could not get recommendations. Try again later.')
-    } finally {
-      setRecsLoading(false)
-    }
   }
 
   return (
@@ -139,48 +121,9 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* AI Recommendations */}
-          <div className="border border-[#d4af37]/15 rounded" style={{ background: 'rgba(212,175,55,0.03)', padding: 32 }}>
-            <div className="flex items-center justify-between flex-wrap" style={{ gap: 16, marginBottom: 24 }}>
-              <div>
-                <p className="text-xs tracking-[.25em] text-[#d4af37] uppercase" style={{ marginBottom: 4 }}>Powered by AI</p>
-                <h2 className="text-xl font-light tracking-wide">Recommendations for you</h2>
-              </div>
-              <button
-                onClick={handleRecommend}
-                disabled={recsLoading}
-                className={`text-xs tracking-widest uppercase rounded-sm border transition-all cursor-pointer
-                  ${recsLoading
-                    ? 'border-[#d4af37]/30 text-[#d4af37]/40 cursor-not-allowed'
-                    : 'border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/10'
-                  }`}
-                style={{ padding: '8px 24px' }}
-              >
-                {recsLoading ? 'Thinking...' : 'Recommend me movies'}
-              </button>
-            </div>
+          {/* ── AI Recommendations ── */}
+          <RecommendPanel movies={movies} />
 
-            {recsError && (
-              <p className="text-sm text-red-400 tracking-wide" style={{ marginBottom: 16 }}>{recsError}</p>
-            )}
-
-            {recs.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: 16 }}>
-                {recs.map((r, i) => (
-                  <div key={i} className="rounded hover:border-[#d4af37]/25 transition-all"
-                    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', padding: 16 }}>
-                    <div className="text-xs font-semibold text-white tracking-wide" style={{ marginBottom: 4 }}>{r.title}</div>
-                    {r.year && <div className="text-white/35" style={{ fontSize: 11, marginBottom: 8 }}>{r.year}</div>}
-                    <p className="text-white/40 leading-relaxed" style={{ fontSize: 11 }}>{r.reason}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-white/20 tracking-wide">
-                Rate some watched movies and click the button to get personalised recommendations.
-              </p>
-            )}
-          </div>
         </div>
 
         {/* ── Modals ── */}

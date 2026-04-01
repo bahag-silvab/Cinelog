@@ -4,6 +4,24 @@ import ThreeBackground from '@/components/ui/ThreeBackground'
 
 export default function Home() {
   const router = useRouter()
+  // ── Sample data ─────────────────────────────────────────────
+  const SAMPLE_MOVIES = [
+  { letter: 'I', title: 'Inception',      year: 2010, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#1a0a2e,#2d1458)' , poster: '/posters/Inception.jpeg'},
+  { letter: 'M', title: 'Spirited Away',     year: 2001, genre: 'Animation',   stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#0d1f0d,#1a3d1a)', poster: '/posters/spirited-away.jpeg' },
+  { letter: 'D', title: 'Dune: Part Two', year: 2024, genre: 'Epic',     stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#1f1000,#3d2200)', poster: '/posters/inception.jpg' },
+  { letter: 'A', title: 'Arrival',        year: 2016, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#001a2e,#003d5c)',poster: '/posters/inception.jpg' },
+  { letter: 'B', title: 'Blade Runner',   year: 2049, genre: 'Neo-noir', stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#1a0a00,#3d1f00)',poster: '/posters/inception.jpg' },
+  { letter: 'E', title: 'Ex Machina',     year: 2014, genre: 'Thriller', stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#0a1a0a,#1a3320)' ,poster: '/posters/inception.jpg'},
+]
+
+   const movies = [
+  { id: 1, title: "Project Hail Mary", poster: "/posters/kill-bill.jpeg" },
+  { id: 2, title: "Hoppers", poster: "/posters/the-shining.jpeg" },
+  { id: 3, title: "Ready or Not 2", poster: "/posters/taxi-driver.jpeg" },
+  { id: 4, title: "Undertone", poster: "/posters/breaking-bad.jpeg" },
+  { id: 5, title: "Peaky Blinders: The Immortal Man", poster: "/posters/taste of cherry.jpeg" },
+  { id: 6, title: "Heel", poster: "/posters/chungking express.jpeg" },
+]
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] text-white font-serif overflow-x-hidden w-full">
@@ -31,7 +49,7 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-32 pb-16 text-center">
+      <section className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] px-6 pt-32 pb-8 text-center">
         <p className="text-xs tracking-[.25em] text-[#d4af37] uppercase mb-5">
           Your personal cinema
         </p>
@@ -65,22 +83,34 @@ export default function Home() {
       </section>
 
       {/* ── Features ── */}
-      <section className="relative z-10 py-20 w-full" style={{ paddingLeft: '64px', paddingRight: '64px' }}>
-        <Divider label="What you get" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12">
-          <FeatureCard number="01" title="Track every film"      desc="Add movies to your personal watchlist. Mark them as watched or in your queue. Your list, your way." />
-          <FeatureCard number="02" title="Rate & review"         desc="Give each film a star rating and write your own review. Build a diary of everything you've watched." />
-          <FeatureCard number="03" title="AI recommendations"    desc="Based on what you've rated, our AI suggests films you'll actually love — not just what's trending." />
-        </div>
-      </section>
+<section className="relative z-10 w-full" style={{ paddingLeft: '64px', paddingRight: '64px', paddingTop: '80px', paddingBottom: '40px' }}>
+  <Divider label="What you get" />
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12">
+    <FeatureCard number="01" title="Track every film"   desc="Add movies to your personal watchlist. Mark them as watched or in your queue. Your list, your way." />
+    <FeatureCard number="02" title="Rate & review"      desc="Give each film a star rating and write your own review. Build a diary of everything you've watched." />
+    <FeatureCard number="03" title="AI recommendations" desc="Based on what you've rated, our AI suggests films you'll actually love — not just what's trending." />
+  </div>
+</section>
 
-      {/* ── Sample watchlist ── */}
-      <section className="relative z-10 py-16 w-full" style={{ paddingLeft: '64px', paddingRight: '64px', paddingBottom: '80px' }}>
-        <Divider label="Your watchlist" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
-          {SAMPLE_MOVIES.map((m, i) => <SampleCard key={i} movie={m} />)}
-        </div>
-      </section>
+{/* ── Sample watchlist ── */}
+<section className="relative z-10 w-full" style={{ paddingTop: '60px', paddingBottom: '80px' }}>
+  <div className="flex justify-center gap-4 px-4">
+    {movies.map((movie, index) => (
+      <div
+        key={movie.id}
+        className={`relative flex-shrink-0 w-48 rounded-lg overflow-hidden cursor-pointer
+          transition-transform duration-200 hover:scale-105
+          ${index === 1 ? "ring-2 ring-orange-400" : ""}`}
+      >
+        <img
+          src={movie.poster}
+          alt={movie.title}
+          className="w-full h-64 object-cover"
+        />
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* ── CTA ── */}
       <section className="relative z-10 text-center px-6 border-t border-[#d4af37]/10" style={{ paddingTop: '100px', paddingBottom: '120px' }}>
@@ -156,12 +186,3 @@ function SampleCard({ movie }) {
   )
 }
 
-// ── Sample data ─────────────────────────────────────────────
-const SAMPLE_MOVIES = [
-  { letter: 'I', title: 'Inception',      year: 2010, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#1a0a2e,#2d1458)' },
-  { letter: 'M', title: 'The Matrix',     year: 1999, genre: 'Action',   stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#0d1f0d,#1a3d1a)' },
-  { letter: 'D', title: 'Dune: Part Two', year: 2024, genre: 'Epic',     stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#1f1000,#3d2200)' },
-  { letter: 'A', title: 'Arrival',        year: 2016, genre: 'Sci-Fi',   stars: '★★★★★', watched: true,  bg: 'linear-gradient(135deg,#001a2e,#003d5c)' },
-  { letter: 'B', title: 'Blade Runner',   year: 2049, genre: 'Neo-noir', stars: '★★★★☆', watched: true,  bg: 'linear-gradient(135deg,#1a0a00,#3d1f00)' },
-  { letter: 'E', title: 'Ex Machina',     year: 2014, genre: 'Thriller', stars: '— — — —', watched: false, bg: 'linear-gradient(135deg,#0a1a0a,#1a3320)' },
-]
