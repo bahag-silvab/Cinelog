@@ -66,11 +66,11 @@ export async function updateMovie(req: Request, res: Response): Promise<void> {
     review?: string;
     status?: "want_to_watch" | "watched";
   };
-
+  const parsedRating = rating !== undefined ? Number(rating) : undefined;
   // validate rating
   if (
-    rating !== undefined &&
-    (typeof rating !== "number" || rating < 1 || rating > 5)
+    parsedRating !== undefined &&
+    (typeof parsedRating !== "number" || parsedRating < 1 || parsedRating > 5)
   ) {
     res.status(400).json({ error: "rating must be a number between 1 and 5" });
     return;
@@ -82,7 +82,7 @@ export async function updateMovie(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  if (rating !== undefined) movie.rating = rating;
+  if (parsedRating !== undefined) movie.rating = parsedRating;
   if (review !== undefined) movie.review = review;
   if (status !== undefined) movie.status = status;
 
