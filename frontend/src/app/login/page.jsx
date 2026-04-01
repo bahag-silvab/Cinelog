@@ -6,12 +6,12 @@ import { login as loginApi } from '@/services/authService'
 import ThreeBackground from '@/components/ui/ThreeBackground'
 
 export default function LoginPage() {
-  const [email, setEmail]       = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError]       = useState('')
-  const [loading, setLoading]   = useState(false)
-  const { login }               = useAuth()
-  const router                  = useRouter()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,8 +33,10 @@ export default function LoginPage() {
       <ThreeBackground />
 
       {/* ── Left panel — branding ── */}
-      <div className="flex-1 flex flex-col justify-between p-10 relative z-10">
-
+      <div
+        className="hidden md:flex flex-1 flex-col justify-between py-12 relative z-10 overflow-hidden min-w-0"
+        style={{ paddingLeft: '80px', paddingRight: '48px' }}
+      >
         <div
           className="text-xl font-bold tracking-widest text-[#d4af37] uppercase cursor-pointer"
           onClick={() => router.push('/')}
@@ -68,8 +70,18 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right panel — form ── */}
-      <div className="w-full max-w-[480px] flex items-center justify-center px-8 py-10 relative z-10 border-l border-white/5 bg-white/[0.02] backdrop-blur-xl">
-        <div className="w-full max-w-[360px]">
+      <div className="w-full max-w-[480px] flex items-center justify-center px-8 py-10 relative z-10 border-l border-white/5 backdrop-blur-xl overflow-hidden">
+        {/* Movie poster background */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/posters/_.jpeg"
+            alt=""
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute" />
+        </div>
+
+        <div className="w-full max-w-[360px] relative z-10">
 
           <h2 className="text-2xl font-normal tracking-wide text-white mb-2">
             Sign in
@@ -91,8 +103,8 @@ export default function LoginPage() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <Field label="Email"    type="email"    value={email}    onChange={e => setEmail(e.target.value)}    placeholder="you@example.com" required />
-            <Field label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"        required />
+            <Field label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
+            <Field label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
 
             <button
               type="submit"
