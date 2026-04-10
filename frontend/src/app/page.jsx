@@ -186,3 +186,4 @@ function SampleCard({ movie }) {
   )
 }
 
+ 
