@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', verifyToken, watchlistRoutes);
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 8080;
 (async () => {
   await sequelize.sync();
   app.listen(PORT, () => {
