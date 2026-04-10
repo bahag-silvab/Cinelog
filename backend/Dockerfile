@@ -20,9 +20,6 @@ RUN npm ci --only=production
 
 COPY --from=builder /api/dist/ ./dist
 
-EXPOSE 3000
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js
+EXPOSE 8080
 
 CMD ["node", "dist/server.js"]
