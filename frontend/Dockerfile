@@ -1,18 +1,23 @@
-FROM node:25-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm ci --only=production
+RUN npm ci
 
 COPY . .
-
 RUN npm run build
 
-EXPOSE 3001
+FROM node:20-alpine
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js
+WORKDIR /app
 
-CMD ["npm", "start"]
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+
+EXPOSE 8080
+ENV PORT=8080
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]
